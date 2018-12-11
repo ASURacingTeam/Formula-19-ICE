@@ -1,0 +1,1 @@
+Each sensor individually/combined
