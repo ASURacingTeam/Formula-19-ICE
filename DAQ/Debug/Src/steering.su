@@ -1,0 +1,3 @@
+steering.c:18:10:inputReading	0	static
+steering.c:35:10:graytoDecimal	40	dynamic
+steering.c:81:10:actualReading	0	static
