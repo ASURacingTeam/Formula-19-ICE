@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : I2C.h
+  * File Name          : CAN.h
   * Description        : This file provides code for the configuration
-  *                      of the I2C instances.
+  *                      of the CAN instances.
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -37,8 +37,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __i2c_H
-#define __i2c_H
+#ifndef __can_H
+#define __can_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -51,7 +51,7 @@
 
 /* USER CODE END Includes */
 
-extern I2C_HandleTypeDef hi2c2;
+extern CAN_HandleTypeDef hcan;
 
 /* USER CODE BEGIN Private defines */
 
@@ -59,7 +59,7 @@ extern I2C_HandleTypeDef hi2c2;
 
 extern void _Error_Handler(char *, int);
 
-void MX_I2C2_Init(void);
+void MX_CAN_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
@@ -68,7 +68,7 @@ void MX_I2C2_Init(void);
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ i2c_H */
+#endif /*__ can_H */
 
 /**
   * @}

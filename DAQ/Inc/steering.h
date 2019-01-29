@@ -15,6 +15,6 @@
 
 uint32_t Steering_InputReading();
 uint32_t Steering_GrayToDecimalConversion(uint32_t graycode,int size);
-uint32_t Steering_ActualReading(uint32_t steering_decimal_reading);
+uint32_t Steering_ActualReading();
 
 #endif /* STEERING_H_ */

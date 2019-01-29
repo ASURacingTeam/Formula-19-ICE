@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * COPYRIGHT(c) 2019 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -67,12 +67,12 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pins : PBPin PBPin PBPin PBPin 
-                           PBPin PBPin PBPin PBPin 
+  /*Configure GPIO pins : PBPin PBPin PBPin PB13 
+                           PB14 PBPin PBPin PBPin 
                            PBPin PBPin */
-  GPIO_InitStruct.Pin = Bit1_Pin|Bit2_Pin|Bit3_Pin|Bit4_Pin 
-                          |Bit5_Pin|Bit6_Pin|Bit7_Pin|Bit8_Pin 
-                          |Bit9_Pin|Bit10_Pin;
+  GPIO_InitStruct.Pin = Bit1_Pin|Bit2_Pin|Bit3_Pin|GPIO_PIN_13 
+                          |GPIO_PIN_14|Bit4_Pin|Bit5_Pin|Bit6_Pin 
+                          |Bit7_Pin|Bit8_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
