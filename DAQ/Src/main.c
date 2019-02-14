@@ -47,13 +47,35 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "mpu6050.h"
+#include "wheel_speed.h"
+#include "steering.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+
+// variables for mpu6050
+MPU6050_RawValues mpu1;                          // structure of raw values readings
+
+//variables for steering sensor
+uint32_t steering_graycode_reading,steering_decimal_reading,steering_final_reading;
+
+//variables for 4 suspension sensors
+uint16_t adc_reading[4];
+float measured_distance[4];
+
+// variables of 5 wheel speed sensors
+uint32_t g_old_capture_val[5] = {0,0,0,0,0};      /*TIME OF FIRST EDGE*/
+uint32_t g_capture_val[5] = {0,0,0,0,0};          /*TIME OF SECOND EDGE*/
+uint8_t updateCounter[5] = {0,0,0,0,0};           /*counter to know how many overflows between 2 edges*/
+uint8_t Number_of_over_flows[5] = {0,0,0,0,0};    // each timer over flow the counter increases by 1
+uint8_t flag[5] = {0,0,0,0,0};                    // to determine this is the first rising edge or the second one
+
+//variables for CAN
+CanTxMsgTypeDef TxMessage1;
 
 /* USER CODE END PV */
 
@@ -62,7 +84,8 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -77,6 +100,20 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
+	//for speed sensors
+	HAL_TIM_Base_Start_IT(&htim2);                        /*TIMER 2 START COUNTING */
+	HAL_TIM_IC_Start_IT(&htim2 , TIM_CHANNEL_1);
+
+	HAL_TIM_Base_Start_IT(&htim1);                        /*TIMER 1 START COUNTING*/
+    HAL_TIM_IC_Start_IT(&htim1 , TIM_CHANNEL_1);      /*START IC interrupt mode FOR CHANNEL 1*/
+    HAL_TIM_IC_Start_IT(&htim1 , TIM_CHANNEL_2);      /*START IC interrupt mode FOR CHANNEL 2*/
+    HAL_TIM_IC_Start_IT(&htim1 , TIM_CHANNEL_3);      /*START IC interrupt mode FOR CHANNEL 3*/
+    HAL_TIM_IC_Start_IT(&htim1 , TIM_CHANNEL_4);      /*START IC interrupt mode FOR CHANNEL 4*/
+
+    //for suspension sensors
+    HAL_TIM_Base_Start_IT(&htim3);
+    HAL_ADC_Start_DMA(&hadc1,(uint32_t *)adc_reading,4);
 
   /* USER CODE END 1 */
 
@@ -107,20 +144,44 @@ int main(void)
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
 
+  //Inialization of mpu6050
+  MPU6050_Init(&hi2c2, MPU6050_ADDRESS_AD0LOW, FULLSCALE_250, FULLSCALE_2g, SAMPLERATE_8KHz,&mpu1);
+		TxMessage1.StdId = 0x7D0;
+	  TxMessage1.RTR = CAN_RTR_DATA;
+	  TxMessage1.IDE = CAN_ID_STD;
+	  TxMessage1.DLC = 1;
+	  TxMessage1.Data[0] =10;
+	  hcan.pTxMsg = &TxMessage1;
+	  HAL_CAN_Transmit(&hcan, 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+	  //read mpu readings
+	  MPU6050_ReadRawData(&hi2c2,MPU6050_ADDRESS_AD0LOW,&mpu1);
+	  //read steering reaings in gray code and convert it to decimal
+	  steering_graycode_reading = Steering_InputReading();
+	  steering_decimal_reading = Steering_GrayToDecimalConversion(steering_graycode_reading,10);
+	  steering_final_reading = Steering_ActualReading(steering_decimal_reading);
+	  //can transmit
+	  TxMessage1.StdId = 0x7D0;
+	  TxMessage1.RTR = CAN_RTR_DATA;
+	  TxMessage1.IDE = CAN_ID_STD;
+	  TxMessage1.DLC = 1;
+	  TxMessage1.Data[0] =10;
+	  hcan.pTxMsg = &TxMessage1;
+	  HAL_CAN_Transmit(&hcan, 10);
+	  if(hcan.State==HAL_CAN_STATE_TIMEOUT) {
+		  HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+		  HAL_Delay(1000);
+	  }
   }
   /* USER CODE END 3 */
-
 }
 
 /**
@@ -182,6 +243,129 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM1)
+	{
+		Number_of_over_flows[0]++;
+		Number_of_over_flows[1]++;
+		Number_of_over_flows[2]++;
+		Number_of_over_flows[3]++;
+	}
+
+	if (htim->Instance == TIM2)
+	{
+		Number_of_over_flows[4]++;
+	}
+
+	if(htim->Instance==TIM3)
+	{
+		uint8_t i;
+		for(i=0; i<4; i++)
+		{
+			//converting ADC readings into length in mm
+			/*
+			*    adc_reading     ------------> 4095 (full scale of 12 bit ADC)
+			*  measured_distance   ----------> 30   (3cm)
+			*/
+			measured_distance[i]=adc_reading[i]*(30)/(4095.0);
+		}
+	}
+}
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+
+	if (htim->Instance == TIM1)
+	{
+		if ((htim->Instance->CCMR1 & TIM_CCMR1_CC1S) != 0x00U)  // check if channel 1 is interrupted
+		{
+			if (flag[0] == 0)
+			{
+                Number_of_over_flows[0] = 0;
+                flag[0] = 1;
+			}
+			else if (flag[0] == 1)
+			{
+                updateCounter[0] = Number_of_over_flows[0];
+                flag[0] = 0;
+			}
+			g_old_capture_val[0] = g_capture_val[0];
+			g_capture_val[0] = __HAL_TIM_GET_COMPARE(&htim1, TIM_CHANNEL_1);
+		}
+
+		if ((htim->Instance->CCMR1 & TIM_CCMR1_CC2S) != 0x00U)  // check if channel 2 is interrupted
+		{
+			if (flag[1] == 0)
+			{
+				Number_of_over_flows[1] = 0;
+				flag[1] = 1;
+			}
+			else if (flag[1] == 1)
+			{
+				updateCounter[1] = Number_of_over_flows[1];
+				flag[1] = 0;
+			}
+			g_old_capture_val[1] = g_capture_val[1];
+			g_capture_val[1] = __HAL_TIM_GET_COMPARE(&htim1, TIM_CHANNEL_2);
+		}
+
+		if ((htim->Instance->CCMR2 & TIM_CCMR2_CC3S) != 0x00U)  // check if channel 3 is interrupted
+		{
+			if (flag[2] == 0)
+			{
+				Number_of_over_flows[2] = 0;
+				flag[2] = 1;
+			}
+			else if (flag[2] == 1)
+			{
+				updateCounter[2] = Number_of_over_flows[2];
+				flag[2] = 0;
+			}
+			g_old_capture_val[2] = g_capture_val[2];
+			g_capture_val[2] = __HAL_TIM_GET_COMPARE(&htim1, TIM_CHANNEL_3);
+		}
+
+		if ((htim->Instance->CCMR2 & TIM_CCMR2_CC4S) != 0x00U)  // check if channel 4 is interrupted
+		{
+
+			if (flag[3] == 0)
+			{
+				Number_of_over_flows[3] = 0;
+				flag[3] = 1;
+			}
+			else if (flag[3] == 1)
+			{
+				updateCounter[3] = Number_of_over_flows[3];
+				flag[3] = 0;
+			}
+			g_old_capture_val[3] = g_capture_val[3];
+			g_capture_val[3] = __HAL_TIM_GET_COMPARE(&htim1, TIM_CHANNEL_4);
+		}
+	}
+
+	if (htim->Instance == TIM2)
+	{
+		if ((htim->Instance->CCMR1 & TIM_CCMR1_CC1S) != 0x00U)  // check if channel 1 is interrupted
+		{
+			if (flag[4] == 0) {
+				Number_of_over_flows[4] = 0;
+				flag[4] = 1;
+			}
+			else if (flag[4] == 1)
+			{
+				updateCounter[4] = Number_of_over_flows[4];
+				flag[4] = 0;
+			}
+			g_old_capture_val[4] = g_capture_val[4];
+			g_capture_val[4] = __HAL_TIM_GET_COMPARE(&htim2, TIM_CHANNEL_1);
+		}
+	}
+}
+
+
+
+
 
 /* USER CODE END 4 */
 

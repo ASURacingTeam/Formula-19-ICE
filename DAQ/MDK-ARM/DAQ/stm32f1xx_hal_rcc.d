@@ -19,6 +19,8 @@ daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.
 daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
 daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h
 daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h
+daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_can.h
+daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_can_ex.h
 daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h
 daq\stm32f1xx_hal_rcc.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h

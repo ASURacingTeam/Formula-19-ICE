@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>DAQ</name>
-	<comment/>
+	<comment />
 	<projects>
 	</projects>
 	<buildSpec>
@@ -15,7 +15,7 @@
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
-					<value/>
+					<value />
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.append_environment</key>
@@ -23,7 +23,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
-					<value/>
+					<value />
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
@@ -108,11 +108,6 @@
 			<location>PARENT-2-PROJECT_LOC/Src/adc.c</location>
 		</link>
     <link>
-			<name>Application/User/can.c</name>
-			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/can.c</location>
-		</link>
-    <link>
 			<name>Application/User/dma.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Src/dma.c</location>
@@ -161,11 +156,6 @@
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_adc_ex.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c</location>
-		</link>
-    <link>
-			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_can.c</name>
-			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.c</location>
 		</link>
     <link>
 			<name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_i2c.c</name>
@@ -237,5 +227,13 @@
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC//Src/system_stm32f1xx.c</location>
 		</link>
-  </linkedResources>
+  <link>
+      <name>Application/User/can.c</name>
+      <type>1</type>
+      <location>PARENT-2-PROJECT_LOC/Src/can.c</location>
+    </link><link>
+      <name>Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_can.c</name>
+      <type>1</type>
+      <location>PARENT-2-PROJECT_LOC/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.c</location>
+    </link></linkedResources>
 </projectDescription>

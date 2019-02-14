@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * COPYRIGHT(c) 2019 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -65,10 +65,6 @@
 #define Bit7_GPIO_Port GPIOB
 #define Bit8_Pin GPIO_PIN_7
 #define Bit8_GPIO_Port GPIOB
-#define Bit9_Pin GPIO_PIN_8
-#define Bit9_GPIO_Port GPIOB
-#define Bit10_Pin GPIO_PIN_9
-#define Bit10_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

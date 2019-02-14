@@ -3,40 +3,72 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.26.2.0
-Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Salma Elbehairy, Microsoft, LIC=----
+IDE-Version: µVision V5.24.2.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: mohned mohamed, asu, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.26.2.0
+Toolchain:       MDK-Lite  Version: 5.24.1
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 6 (build 750)
-Assembler:       Armasm.exe V5.06 update 6 (build 750)
-Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
-Library Manager: ArmAr.exe V5.06 update 6 (build 750)
-Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
-CPU DLL:         SARMCM3.DLL V5.26.2.0
-Dialog DLL:      DCM.DLL V1.17.2.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
-Dialog DLL:      TCM.DLL V1.36.1.0
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DARMSTM.DLL V1.68.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
+Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-D:\learning phase\STM32\DAQ\MDK-ARM\DAQ.uvprojx
-Project File Date:  12/13/2018
+C:\Users\mohned\Desktop\da\DAQ\MDK-ARM\DAQ.uvprojx
+Project File Date:  02/11/2019
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'DAQ'
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'DAQ'
+assembling startup_stm32f103xb.s...
+compiling mpu6050.c...
 compiling main.c...
-../Src/main.c(120): warning:  #177-D: variable "i"  was declared but never referenced
-      int i = 0, remainder;
-../Src/main.c(120): warning:  #177-D: variable "remainder"  was declared but never referenced
-      int i = 0, remainder;
+../Inc/steering.h(16): warning:  #1295-D: Deprecated declaration Steering_InputReading - give arg types
+  uint32_t Steering_InputReading();
+../Inc/steering.h(18): warning:  #1295-D: Deprecated declaration Steering_ActualReading - give arg types
+  uint32_t Steering_ActualReading();
 ../Src/main.c: 2 warnings, 0 errors
+compiling gpio.c...
+compiling dma.c...
+compiling i2c.c...
+compiling adc.c...
+compiling stm32f1xx_hal_msp.c...
+compiling tim.c...
+compiling stm32f1xx_it.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling stm32f1xx_hal_adc.c...
+compiling stm32f1xx_hal_adc_ex.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling stm32f1xx_hal_i2c.c...
+compiling stm32f1xx_hal_tim.c...
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_gpio.c...
+compiling stm32f1xx_hal_dma.c...
+compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_flash.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling system_stm32f1xx.c...
 linking...
-Program Size: Code=9928 RO-data=292 RW-data=52 ZI-data=1828  
-FromELF: creating hex file...
-"DAQ\DAQ.axf" - 0 Error(s), 2 Warning(s).
+DAQ\DAQ.axf: Error: L6218E: Undefined symbol HAL_CAN_Transmit (referred from main.o).
+DAQ\DAQ.axf: Error: L6218E: Undefined symbol MX_CAN_Init (referred from main.o).
+DAQ\DAQ.axf: Error: L6218E: Undefined symbol Steering_ActualReading (referred from main.o).
+DAQ\DAQ.axf: Error: L6218E: Undefined symbol Steering_GrayToDecimalConversion (referred from main.o).
+DAQ\DAQ.axf: Error: L6218E: Undefined symbol Steering_InputReading (referred from main.o).
+DAQ\DAQ.axf: Error: L6218E: Undefined symbol hcan (referred from main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 6 error messages.
+"DAQ\DAQ.axf" - 6 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -59,7 +91,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.2
-Build Time Elapsed:  00:00:01
+Target not created.
+Build Time Elapsed:  00:00:35
 </pre>
 </body>
 </html>

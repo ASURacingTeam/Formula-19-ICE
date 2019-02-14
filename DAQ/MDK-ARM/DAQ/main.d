@@ -19,6 +19,8 @@ daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h
+daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_can.h
+daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_can_ex.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h
@@ -29,8 +31,11 @@ daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 daq\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 daq\main.o: ../Inc/adc.h
+daq\main.o: ../Inc/can.h
 daq\main.o: ../Inc/dma.h
 daq\main.o: ../Inc/i2c.h
 daq\main.o: ../Inc/tim.h
 daq\main.o: ../Inc/gpio.h
 daq\main.o: ../Inc/mpu6050.h
+daq\main.o: ../Inc/wheel_speed.h
+daq\main.o: ../Inc/steering.h

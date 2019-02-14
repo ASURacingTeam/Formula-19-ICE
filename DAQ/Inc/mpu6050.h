@@ -79,13 +79,14 @@ typedef enum
 
 typedef struct
 {
-	int16_t gyroscope_x;
-	int16_t gyroscope_y;
-	int16_t gyroscope_z;
-	int16_t accelerometer_x;
-	int16_t accelerometer_y;
-	int16_t accelerometer_z;
-
+	int16_t raw_gyroscope_x;
+	int16_t raw_gyroscope_y;
+	int16_t raw_gyroscope_z;
+	int16_t raw_accelerometer_x;
+	int16_t raw_accelerometer_y;
+	int16_t raw_accelerometer_z;
+	float gyro_correction_param;
+	float accel_correction_param;
 }MPU6050_RawValues;
 
 
@@ -94,7 +95,8 @@ void MPU6050_Init(I2C_HandleTypeDef *hi2c,
 	              MPU6050_I2CAddress address,
 				  MPU6050_GyroFS gyro_FS,
 				  MPU6050_AccelFS accel_FS,
-				  MPU6050_SamplingRate sampling_rate);
+				  MPU6050_SamplingRate sampling_rate,
+				  MPU6050_RawValues* mpu);
 
 void MPU6050_ReadRawData(I2C_HandleTypeDef *hi2c,
 					  	 MPU6050_I2CAddress address,
