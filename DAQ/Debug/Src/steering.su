@@ -1,3 +1,0 @@
-steering.c:20:10:Steering_InputReading	16	static
-steering.c:42:10:Steering_GrayToDecimalConversion	40	dynamic
-steering.c:82:10:Steering_ActualReading	0	static

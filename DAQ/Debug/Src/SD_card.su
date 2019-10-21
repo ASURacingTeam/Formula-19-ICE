@@ -1,0 +1,10 @@
+SD_card.c:23:19:lSPI_WaitFlagStateUntilTimeout	24	static
+SD_card.c:69:19:SPI_Recieve	24	static
+SD_card.c:121:6:WaitUntilReady	32	static
+SD_card.c:131:6:SelectCard	0	static
+SD_card.c:136:6:DeselectCard	0	static
+SD_card.c:141:9:SendCommand	32	static
+SD_card.c:188:9:SendACMD	16	static
+SD_card.c:195:9:SD_Initalize	24	static
+SD_card.c:258:9:SD_ReadBlock	24	static
+SD_card.c:287:9:SD_WriteBlock	32	static

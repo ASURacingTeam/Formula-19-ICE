@@ -49,22 +49,14 @@
 
 /* Private define ------------------------------------------------------------*/
 
-#define Bit1_Pin GPIO_PIN_0
-#define Bit1_GPIO_Port GPIOB
-#define Bit2_Pin GPIO_PIN_1
-#define Bit2_GPIO_Port GPIOB
-#define Bit3_Pin GPIO_PIN_2
-#define Bit3_GPIO_Port GPIOB
-#define Bit4_Pin GPIO_PIN_3
-#define Bit4_GPIO_Port GPIOB
-#define Bit5_Pin GPIO_PIN_4
-#define Bit5_GPIO_Port GPIOB
-#define Bit6_Pin GPIO_PIN_5
-#define Bit6_GPIO_Port GPIOB
-#define Bit7_Pin GPIO_PIN_6
-#define Bit7_GPIO_Port GPIOB
-#define Bit8_Pin GPIO_PIN_7
-#define Bit8_GPIO_Port GPIOB
+#define SD_CS_Pin GPIO_PIN_4
+#define SD_CS_GPIO_Port GPIOA
+#define SD_SCK_Pin GPIO_PIN_5
+#define SD_SCK_GPIO_Port GPIOA
+#define SD_MISO_Pin GPIO_PIN_6
+#define SD_MISO_GPIO_Port GPIOA
+#define SD_MOSI_Pin GPIO_PIN_7
+#define SD_MOSI_GPIO_Port GPIOA
 
 /* ########################## Assert Selection ############################## */
 /**

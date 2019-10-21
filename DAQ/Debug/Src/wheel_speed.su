@@ -1,4 +1,0 @@
-wheel_speed.c:15:7:Wheel_speed.part.0	8	static
-wheel_speed.c:15:7:Wheel_speed	8	static
-wheel_speed.c:58:10:Average_car_speed	8	static
-wheel_speed.c:63:7:Engine_Speed	8	static

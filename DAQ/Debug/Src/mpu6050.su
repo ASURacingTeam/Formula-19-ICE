@@ -1,2 +1,2 @@
-mpu6050.c:23:6:MPU6050_Init	48	static
-mpu6050.c:91:6:MPU6050_ReadRawData	40	static
+mpu6050.c:13:6:MPU6050_Init	48	static
+mpu6050.c:98:6:MPU6050_ReadRawData	56	static
